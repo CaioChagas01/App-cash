@@ -1,38 +1,20 @@
 const API_URL = "https://app-cash-api.onrender.com";
 
 async function calcular() {
-    const tipo = document.getElementById("tipo").value;
-    const valor = parseFloat(document.getElementById("valor").value);
+  const valor = document.getElementById("valor").value;
+  const tipo = document.getElementById("tipo").value;
 
-    const res = await fetch(API_URL + "/cashback", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            tipo_cliente: tipo,
-            valor: valor
-        })
-    });
+  const res = await fetch(API_URL + "/cashback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      valor: Number(valor),
+      tipo_cliente: tipo
+    })
+  });
 
-    const data = await res.json();
-    document.getElementById("resultado").innerText =
-        "Cashback: R$ " + data.cashback.toFixed(2);
+  const data = await res.json();
 
-    carregarHistorico();
+  document.getElementById("resultado").innerText =
+    "Cashback: " + data.cashback;
 }
-
-async function carregarHistorico() {
-    const res = await fetch(API_URL + "/historico");
-    const data = await res.json();
-
-    const lista = document.getElementById("historico");
-    lista.innerHTML = "";
-
-    data.forEach(item => {
-        const li = document.createElement("li");
-        li.innerText =
-            `${item.tipo_cliente} - R$${item.valor} → R$${item.cashback}`;
-        lista.appendChild(li);
-    });
-}
-
-carregarHistorico();
