@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cashback App</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Cashback App</title>
 </head>
 <body>
 
-<div class="container">
-    <h1>Cashback</h1>
+  <h1>💰 Cashback App</h1>
 
-    <select id="tipo">
-        <option value="comum">Comum</option>
-        <option value="premium">Premium</option>
-        <option value="vip">VIP</option>
-    </select>
+  <input id="valor" placeholder="Valor" />
+  
+  <select id="tipo">
+    <option value="comum">Comum</option>
+    <option value="premium">Premium</option>
+    <option value="vip">VIP</option>
+  </select>
 
-    <input type="number" id="valor" placeholder="Valor da compra">
+  <button onclick="calcular()">Calcular</button>
 
-    <button onclick="calcular()">Calcular</button>
+  <h2 id="resultado"></h2>
 
-    <h2 id="resultado"></h2>
+  <script>
+    const API_URL = "https://app-cash-api.onrender.com";
 
-    <h3>Histórico</h3>
-    <ul id="historico"></ul>
-</div>
+    async function calcular() {
+      const valor = document.getElementById("valor").value;
+      const tipo = document.getElementById("tipo").value;
 
-<script src="script.js"></script>
+      const res = await fetch(API_URL + "/cashback", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          valor: Number(valor),
+          tipo_cliente: tipo
+        })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("resultado").innerText =
+        "Cashback: " + data.cashback;
+    }
+  </script>
+
 </body>
 </html>
