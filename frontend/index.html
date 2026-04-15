@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cashback App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Cashback</h1>
+
+    <select id="tipo">
+        <option value="comum">Comum</option>
+        <option value="premium">Premium</option>
+        <option value="vip">VIP</option>
+    </select>
+
+    <input type="number" id="valor" placeholder="Valor da compra">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <h2 id="resultado"></h2>
+
+    <h3>Histórico</h3>
+    <ul id="historico"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
