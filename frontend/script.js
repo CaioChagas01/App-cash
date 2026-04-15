@@ -1,4 +1,4 @@
-const API_URL = "https://app-cash.onrender.com";
+const API_URL = "https://app-cash-api.onrender.com";
 
 async function calcular() {
     const tipo = document.getElementById("tipo").value;
